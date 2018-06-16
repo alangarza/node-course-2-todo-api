@@ -26,7 +26,6 @@ app.get('/todos', (req, res) => {
         res.send({todos});
     }, (e) => {
         res.status(400).send(e);
-
     });
 }); 
 // Get /todos/131231
