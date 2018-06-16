@@ -29,7 +29,6 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
         },
         $inc: {
             age: 1
-
         }
     }, {
         returnOriginal: false
