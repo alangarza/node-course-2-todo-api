@@ -31,25 +31,6 @@ app.get('/todos', (req, res) => {
     });
 }); 
 
-
-// Get /todos/131231
-
-// app.get('/todos/:id', (req, res)=> {
-//     var id = req.params.id; 
-
-//     Todo.findById(id).then((todos)=> {
-//         if(todo)
-//         res.send({todos})
-//     }, (e) => {
-//         if (!ObjectID.isValid(id)){
-//             console.log('ID not valid');
-//             return res.status(400).send(e);
-//         } 
-//     });
-
-// });
-
-
 app.get('/todos/:id', (req, res) => {
     var id = req.params.id;
 
@@ -69,6 +50,31 @@ app.get('/todos/:id', (req, res) => {
 
 });
 
+app.delete('/todos/:id', (req, res) => {
+    //get the id
+    var id = req.params.id;
+    //validate the id -> not valid? return 404
+    if (!ObjectID.isValid(id)){
+        return res.status(404).send();
+    }
+    // remove by id
+       
+    Todo.findByIdAndRemove(id).then((todo)=>{
+        //success
+            // if no doc, send 404
+        if (!todo) {
+            return res.status(404).send();
+        }
+            // if doc send doc back
+        
+        res.send(todo);
+        console.log(`Deleted todo:` + todo);
+        //error
+    }).catch((e) => {
+            //400 with empty body
+        return res.status(400).send();
+    });        
+});
 
 
 
